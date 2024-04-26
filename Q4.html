@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doubly Linked-List</title>
+</head>
+
+<body>
+    <script>
+        class LinkedList {
+            // Initialization
+            constructor(data) {
+                this.head = {
+                    prev: null,
+                    data: data,
+                    next: null
+                };
+                this.tail = this.head;
+                this.size = 1;
+            }
+
+            // Add New Node To The Tail
+            addToTail(data) {
+                let newNode = {
+                    prev: null,
+                    data: data,
+                    next: null
+                };
+
+                if (this.head == null) {
+                    this.head = newNode;
+                    this.tail = newNode;
+                }
+
+                let currentNode = this.head;
+                while (currentNode != null) {
+                    newNode.prev = currentNode;
+                    currentNode = currentNode.next;
+                }
+                this.tail.next = newNode;
+                this.tail = newNode;
+
+                this.size++;
+            }
+
+            // Update Data At Any Position
+            updateData(data, position) {
+                let currentNode = this.head;
+
+                for (let i = 1; i < position - 1; i++) {
+                    currentNode = currentNode.next;
+                }
+
+                if (currentNode != null) {
+                    currentNode.next.data = data;
+                }
+            }
+
+            // Remove Node At Any Position
+            removeNode(node) {
+
+                if (node === undefined) {
+                    return;
+                }
+
+                if (node === 1) {
+                    this.head = this.head.next;
+                    if (this.head === null) {
+                        this.tail = null;
+                    }
+                }
+
+                let currentNode = this.head;
+                for (let i = 1; i < node - 1; i++) {
+                    currentNode = currentNode.next;
+                }
+
+                if (currentNode.next === this.tail) {
+                    this.tail = currentNode;
+                }
+
+                currentNode.next = currentNode.next.next;
+                this.size--;
+            }
+
+            // Print List
+            viewList() {
+                let currentNode = this.head;
+
+                while (currentNode != null) {
+                    console.log(currentNode.data);
+                    currentNode = currentNode.next;
+                }
+            }
+        }
+
+        console.log("ORIGINAL LIST:");
+        let list = new LinkedList(100);
+        list.addToTail(200);
+        list.addToTail(300);
+        list.addToTail(400);
+        list.addToTail(500);
+        list.viewList();
+
+        list.updateData(333, 3);
+        console.log("AFTER UPDATE:");
+        list.viewList();
+
+        list.removeNode(3);
+        console.log("AFTER REMOVE:");
+        list.viewList();
+
+        console.log(list);
+    </script>
+</body>
+
+</html>

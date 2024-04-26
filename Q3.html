@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse - Linked List</title>
+</head>
+
+<body>
+    <script>
+        class LinkedList {
+            // Initialization
+            constructor(data) {
+                this.head = {
+                    data: data,
+                    next: null
+                };
+                this.tail = this.head;
+                this.size = 1;
+            }
+
+            // Add New Node To The Tail
+            addToTail(data) {
+                let newNode = {
+                    data: data,
+                    next: null
+                };
+
+                if (this.head == null) {
+                    this.head = newNode;
+                }
+
+                let currentNode = this.head;
+                while (currentNode.next != null) {
+                    currentNode = currentNode.next;
+                }
+                currentNode.next = newNode;
+
+                this.size++;
+            }
+
+            // Print List With Middle Node
+            viewList() {
+                let currentNode = this.head;
+                let middleNode = Math.ceil(this.size / 2);
+
+                let index = 1;
+                while (currentNode != null) {
+                    console.log(currentNode.data);
+
+                    if (index == middleNode - 1) {
+                        currentNode.next = currentNode.next.next;
+                    }
+
+                    currentNode = currentNode.next;
+                    index++;
+                    this.size--;
+                }
+            }
+        }
+
+        let list = new LinkedList(100);
+        list.addToTail(200);
+        list.addToTail(300);
+        list.addToTail(400);
+        list.addToTail(500);
+
+        list.viewList();
+        console.log(list);
+    </script>
+</body>
+
+</html>
