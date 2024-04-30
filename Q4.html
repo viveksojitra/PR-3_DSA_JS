@@ -61,27 +61,29 @@
             // Remove Node At Any Position
             removeNode(node) {
 
-                if (node === undefined) {
+                if (node == undefined) {
                     return;
                 }
 
-                if (node === 1) {
+                if (node == 1) {
                     this.head = this.head.next;
-                    if (this.head === null) {
+                    if (this.head == null) {
                         this.tail = null;
                     }
+                } else {
+
+                    let currentNode = this.head;
+                    for (let i = 1; i < node - 1; i++) {
+                        currentNode = currentNode.next;
+                    }
+
+                    if (currentNode.next == this.tail) {
+                        this.tail = currentNode;
+                    }
+                    currentNode.next = currentNode.next.next;
                 }
 
-                let currentNode = this.head;
-                for (let i = 1; i < node - 1; i++) {
-                    currentNode = currentNode.next;
-                }
 
-                if (currentNode.next === this.tail) {
-                    this.tail = currentNode;
-                }
-
-                currentNode.next = currentNode.next.next;
                 this.size--;
             }
 
